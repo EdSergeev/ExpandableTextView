@@ -95,3 +95,4 @@ lint/tmp/
 *.mp4
 
 app/release
+/.idea/

@@ -1,4 +1,4 @@
-package io.github.glailton.expandabletextview.demo
+package com.github.edsergeev.expandabletextview.demo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

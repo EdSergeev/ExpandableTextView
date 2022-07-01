@@ -1,10 +1,9 @@
-package io.github.glailton.expandabletextview
+package com.github.edsergeev.expandabletextview
 
 import android.animation.*
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.GradientDrawable.*
 import android.graphics.drawable.GradientDrawable.Orientation.*
 import android.os.Build
 import android.text.Spannable
@@ -15,12 +14,11 @@ import android.text.style.UnderlineSpan
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.databinding.BindingAdapter
-import io.github.glailton.expandabletextview.Constants.Companion.COLLAPSED_MAX_LINES
-import io.github.glailton.expandabletextview.Constants.Companion.DEFAULT_ANIM_DURATION
-import io.github.glailton.expandabletextview.Constants.Companion.DEFAULT_ELLIPSIZED_TEXT
-import io.github.glailton.expandabletextview.Constants.Companion.READ_LESS
-import io.github.glailton.expandabletextview.Constants.Companion.READ_MORE
+import com.github.edsergeev.expandabletextview.Constants.Companion.COLLAPSED_MAX_LINES
+import com.github.edsergeev.expandabletextview.Constants.Companion.DEFAULT_ANIM_DURATION
+import com.github.edsergeev.expandabletextview.Constants.Companion.DEFAULT_ELLIPSIZED_TEXT
+import com.github.edsergeev.expandabletextview.Constants.Companion.READ_LESS
+import com.github.edsergeev.expandabletextview.Constants.Companion.READ_MORE
 
 class ExpandableTextView @JvmOverloads constructor(
     context: Context,
@@ -82,14 +80,14 @@ class ExpandableTextView @JvmOverloads constructor(
             start()
 
             addListener(object : Animator.AnimatorListener {
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     if (!isExpanded)
                         setEllipsizedText(isExpanded)
                 }
 
-                override fun onAnimationRepeat(animation: Animator?) {}
-                override fun onAnimationCancel(animation: Animator?) {}
-                override fun onAnimationStart(animation: Animator?) {}
+                override fun onAnimationRepeat(animation: Animator) {}
+                override fun onAnimationCancel(animation: Animator) {}
+                override fun onAnimationStart(animation: Animator) {}
             })
         }
 
@@ -228,17 +226,7 @@ class ExpandableTextView @JvmOverloads constructor(
         const val TAG = "ExpandableTextView"
         const val MAX_VALUE_ALPHA = 255
         const val MIN_VALUE_ALPHA = 0
-        const val ANIMATION_PROPERTY_MAX_HEIGHT = "maxHeight"
+        const val ANIMATION_PROPERTY_MAX_HEIGHT = " "
         const val ANIMATION_PROPERTY_ALPHA = "alpha"
     }
-}
-
-@BindingAdapter("readMoreText")
-fun ExpandableTextView.readMoreText(readMore: String) {
-    this.setReadMoreText(readMore)
-}
-
-@BindingAdapter("readLessText")
-fun ExpandableTextView.readLessText(readLess: String) {
-    this.setReadLessText(readLess)
 }

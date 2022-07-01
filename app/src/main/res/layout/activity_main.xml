@@ -7,7 +7,7 @@
     xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-    <io.github.glailton.expandabletextview.ExpandableTextView
+    <com.github.edsergeev.expandabletextview.ExpandableTextView
         android:id="@+id/expand_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <io.github.glailton.expandabletextview.ExpandableTextView
+    <com.github.edsergeev.expandabletextview.ExpandableTextView
         android:id="@+id/expand_tv_very_long"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
         app:layout_constraintTop_toBottomOf="@id/expand_tv"
         app:layout_constraintVertical_bias="0.0" />
 
-    <io.github.glailton.expandabletextview.ExpandableTextView
+    <com.github.edsergeev.expandabletextview.ExpandableTextView
         android:id="@+id/not_expand_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

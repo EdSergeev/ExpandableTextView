@@ -1,6 +1,6 @@
 # ExpandableTextView
 
-[![Download](https://img.shields.io/badge/Download-1.0.2-lightgrey)](https://search.maven.org/artifact/io.github.glailton.expandabletextview/expandabletextview/1.0.2/aar)
+[![Download](https://img.shields.io/badge/Download-1.0.2-lightgrey)](https://search.maven.org/artifact/com.github.edsergeev.expandabletextview/expandabletextview/1.0.2/aar)
 [![Preview the app](https://img.shields.io/badge/Preview-Appetize.io-orange.svg)](https://appetize.io/app/vg9evd5u6zc9bfpuj89wzd24tg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -32,10 +32,10 @@ The library is included in Maven Central Repository, so just add this dependency
 
 ```kotlin
 dependencies {
-    implementation 'io.github.glailton.expandabletextview:expandabletextview:$LatestVersion'
+    implementation 'com.github.edsergeev.expandabletextview:expandabletextview:$LatestVersion'
 }
 ```
-Current latest version is: [![Download](https://img.shields.io/badge/Download-1.0.2-lightgrey)](https://search.maven.org/artifact/io.github.glailton.expandabletextview/expandabletextview)
+Current latest version is: [![Download](https://img.shields.io/badge/Download-1.0.2-lightgrey)](https://search.maven.org/artifact/com.github.edsergeev.expandabletextview/expandabletextview)
 
 ## Usage
 
@@ -51,7 +51,7 @@ Then use `ExpandableTextView` just as you would use any other `TextView`.
 
 Xml snippet:
 ```xml
-<io.github.glailton.expandabletextview.ExpandableTextView
+<com.github.edsergeev.expandabletextview.ExpandableTextView
         android:id="@+id/expand_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

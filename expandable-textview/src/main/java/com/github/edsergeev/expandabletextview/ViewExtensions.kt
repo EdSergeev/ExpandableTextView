@@ -1,4 +1,4 @@
-package io.github.glailton.expandabletextview
+package com.github.edsergeev.expandabletextview
 
 import android.widget.TextView
 import androidx.core.text.PrecomputedTextCompat
