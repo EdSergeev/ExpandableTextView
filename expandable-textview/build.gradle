@@ -10,6 +10,8 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
 
+        versionCode 103
+        versionName "1.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -19,10 +21,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-
-    buildFeatures {
-        dataBinding true
     }
 
     namespace = "com.github.edsergeev.expandabletextview"
