@@ -28,14 +28,23 @@ Take a look at the [demo project](app).
 
 ## Getting Started
 
-The library is included in Maven Central Repository, so just add this dependency to your module level `gradle.build`:
-
+Add it in your root build.gradle at the end of repositories:
+```
+allprojects {
+  repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+  }
+}
+```
+Add the dependency
 ```kotlin
 dependencies {
     implementation 'com.github.edsergeev.expandabletextview:expandabletextview:$LatestVersion'
 }
 ```
-Current latest version is: [![Download](https://img.shields.io/badge/Download-1.0.2-lightgrey)](https://search.maven.org/artifact/com.github.edsergeev.expandabletextview/expandabletextview)
+Current latest version is: [![](https://jitpack.io/v/EdSergeev/ExpandableTextView.svg)](https://jitpack.io/#EdSergeev/ExpandableTextView)
+
 
 ## Usage
 
