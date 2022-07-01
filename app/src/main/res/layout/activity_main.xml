@@ -1,61 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-    <com.github.edsergeev.expandabletextview.ExpandableTextView
-        android:id="@+id/expand_tv"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:padding="8dp"
-        expandableTextView:collapsedLines="3"
-        expandableTextView:animDuration="500"
-        expandableTextView:readMoreText="Leia mais"
-        expandableTextView:readLessText="Leia menos"
-        expandableTextView:textMode="line"
-        expandableTextView:isExpanded="true"
-        android:text="@string/very_short_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        android:orientation="vertical">
 
-    <com.github.edsergeev.expandabletextview.ExpandableTextView
-        android:id="@+id/expand_tv_very_long"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:padding="8dp"
-        expandableTextView:collapsedLines="3"
-        expandableTextView:animDuration="500"
-        expandableTextView:readMoreText="Leia mais"
-        expandableTextView:readLessText="Leia menos"
-        expandableTextView:textMode="line"
-        expandableTextView:isExpanded="true"
-        android:text="@string/very_long_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/expand_tv"
-        app:layout_constraintVertical_bias="0.0" />
+        <com.github.edsergeev.expandabletextview.ExpandableTextView
+            android:id="@+id/expand_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:text="@string/short_text"
+            expandableTextView:animDuration="500"
+            expandableTextView:collapsedLines="2"
+            expandableTextView:isExpanded="true"
+            expandableTextView:readLessText="Leia menos"
+            expandableTextView:readMoreText="Leia mais" />
 
-    <com.github.edsergeev.expandabletextview.ExpandableTextView
-        android:id="@+id/not_expand_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:maxLines="3"
-        android:padding="8dp"
-        android:text="@string/very_long_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/expand_tv_very_long"
-        app:layout_constraintVertical_bias="0.0" />
+        <com.github.edsergeev.expandabletextview.ExpandableTextView
+            android:id="@+id/expand_tv_very_long"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:text="@string/very_long_text"
+            expandableTextView:animDuration="500"
+            expandableTextView:collapsedLines="3"
+            expandableTextView:readLessText="Read less"
+            expandableTextView:readMoreText="Read more" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.github.edsergeev.expandabletextview.ExpandableTextView
+            android:id="@+id/expanded_expand_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:padding="8dp"
+            android:text="@string/very_long_text"
+            expandableTextView:collapsedLines="5" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
