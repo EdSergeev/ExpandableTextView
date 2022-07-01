@@ -9,6 +9,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        findViewById<ExpandableTextView>(R.id.expanded_expand_tv).expand(true)
+        findViewById<ExpandableTextView>(R.id.expanded_expand_tv).expand()
     }
 }

@@ -34,17 +34,18 @@ class ExpandableTextView @JvmOverloads constructor(
     private var mReadMoreText: CharSequence = READ_MORE
     private var mReadLessText: CharSequence = READ_LESS
     private var isExpanded: Boolean = false
-    private var mAnimationDuration: Int? = 0
-    private var foregroundColor: Int? = 0
+    private var mAnimationDuration = 0
+    private var foregroundColor = 0
     private var initialText = ""
-    private var isUnderlined: Boolean? = false
-    private var mEllipsizeTextColor: Int? = 0
+    private var isUnderlined = false
+    private var mEllipsizeTextColor = 0
 
     private var visibleText: String? = null
     private var currentAnimation: Animator? = null
+    private val expandStateListeners = mutableListOf<ExpandStateListener>()
 
     override fun onClick(v: View?) {
-        toggle(expand = !isExpanded, useAnimation = true)
+        toggle(expand = !isExpanded)
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -58,20 +59,28 @@ class ExpandableTextView @JvmOverloads constructor(
         }
     }
 
-    fun expand(useAnimation: Boolean) {
+    fun expand() {
         post {
             if (isAttachedToWindow) {
-                toggle(expand = true, useAnimation)
+                toggle(expand = true)
             }
         }
     }
 
-    fun collapse(useAnimation: Boolean) {
+    fun collapse() {
         post {
             if (isAttachedToWindow) {
-                toggle(expand = false, useAnimation)
+                toggle(expand = false)
             }
         }
+    }
+
+    fun addExpandStateListener(listener: ExpandStateListener) {
+        this.expandStateListeners.add(listener)
+    }
+
+    fun removeExpandStateListener(listener: ExpandStateListener) {
+        this.expandStateListeners.remove(listener)
     }
 
     override fun onDetachedFromWindow() {
@@ -80,7 +89,7 @@ class ExpandableTextView @JvmOverloads constructor(
         currentAnimation = null
     }
 
-    private fun toggle(expand: Boolean, useAnimation: Boolean) {
+    private fun toggle(expand: Boolean) {
         val visibleTextRef = visibleText ?: return
         if (visibleTextRef.isAllTextVisible()) {
             return
@@ -96,38 +105,14 @@ class ExpandableTextView @JvmOverloads constructor(
             COLLAPSED_MAX_LINES
         }
 
-        val startHeight = measuredHeight
-
         measure(
             MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
             MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
         )
 
-        val endHeight = measuredHeight
-
-        if (useAnimation) {
-            currentAnimation = animationSet(startHeight, endHeight).apply {
-                duration = mAnimationDuration?.toLong()!!
-                start()
-
-                addListener(object : Animator.AnimatorListener {
-                    override fun onAnimationEnd(animation: Animator) {
-                        if (!isExpanded)
-                            setEllipsizedText(isExpanded)
-                    }
-
-                    override fun onAnimationRepeat(animation: Animator) {}
-                    override fun onAnimationCancel(animation: Animator) {}
-                    override fun onAnimationStart(animation: Animator) {}
-                })
-            }
-        } else {
-            if (!isExpanded) {
-                setEllipsizedText(isExpanded)
-            }
-        }
-
         setEllipsizedText(isExpanded)
+
+        expandStateListeners.forEach { it.onExpandStateChanged(expand) }
     }
 
     override fun setText(text: CharSequence?, type: BufferType?) {
@@ -164,8 +149,9 @@ class ExpandableTextView @JvmOverloads constructor(
             }
         }
 
-        if (!isExpanded)
+        if (!isExpanded) {
             maxLines = mCollapsedLines
+        }
         setOnClickListener(this)
     }
 
@@ -214,7 +200,7 @@ class ExpandableTextView @JvmOverloads constructor(
     private fun setForeground(isExpanded: Boolean) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             foreground =
-                GradientDrawable(BOTTOM_TOP, intArrayOf(foregroundColor!!, Color.TRANSPARENT))
+                GradientDrawable(BOTTOM_TOP, intArrayOf(foregroundColor, Color.TRANSPARENT))
             foreground.alpha = if (isExpanded) {
                 MIN_VALUE_ALPHA
             } else {
@@ -224,11 +210,12 @@ class ExpandableTextView @JvmOverloads constructor(
     }
 
     private fun animationSet(startHeight: Int, endHeight: Int): AnimatorSet {
+        val textView = this
         return AnimatorSet().apply {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 playTogether(
                     ObjectAnimator.ofInt(
-                        this,
+                        textView,
                         ANIMATION_PROPERTY_MAX_HEIGHT,
                         startHeight,
                         endHeight
@@ -249,12 +236,12 @@ class ExpandableTextView @JvmOverloads constructor(
     private fun String.span(): SpannableString =
         SpannableString(this).apply {
             setSpan(
-                ForegroundColorSpan(mEllipsizeTextColor!!),
+                ForegroundColorSpan(mEllipsizeTextColor),
                 0,
                 this.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-            if (isUnderlined!!)
+            if (isUnderlined)
                 setSpan(
                     UnderlineSpan(),
                     0,
@@ -263,11 +250,15 @@ class ExpandableTextView @JvmOverloads constructor(
                 )
         }
 
+    interface ExpandStateListener {
+        fun onExpandStateChanged(isExpanded: Boolean)
+    }
+
     companion object {
         const val TAG = "ExpandableTextView"
         const val MAX_VALUE_ALPHA = 255
         const val MIN_VALUE_ALPHA = 0
-        const val ANIMATION_PROPERTY_MAX_HEIGHT = " "
+        const val ANIMATION_PROPERTY_MAX_HEIGHT = "height"
         const val ANIMATION_PROPERTY_ALPHA = "alpha"
     }
 }
